@@ -1,16 +1,16 @@
 # Breaking Diffie Hellman
 
-This problem will implement two discrete logarithm programs that can break Diffie-Hellman at various key strengths. The input to the program is decimal formated and provided as (p, g, h). The 2 programs attempts to find an integer x such that pow(g,x) = h.
+This problem will implement two discrete logarithm programs that can break Diffie-Hellman at various key strengths. The input to the program is decimal formated and provided as $(p, g, h)$. The 2 programs attempts to find an integer $x$ such that $g^x$ $mod$ $p= h$.
 
 ## Brute Force
 
-A brute-force algorithm that simply tries every possibly x. On input a file containing decimal-formatted ( p, g, h ), prints x to standard output. The program can be executed as follows:
+A brute-force algorithm that simply tries every possibly $x$. On input a file containing decimal-formatted $( p, g, h )$, prints $x$ to standard output. The program can be executed as follows:
 
     dl-brute <filename for inputs>
 
 ## Baby Step Giant Step Algorithm
 
-An efficient algorithm that is a meet-in-the-middle algorithm for computing the discrete logarithm or order of an element in a finite abelian group. On input a file containing decimal-formatted ( p, g, h ), prints x to standard output.The program can be executed as follows:
+An efficient algorithm that is a meet-in-the-middle algorithm for computing the discrete logarithm or order of an element in a finite abelian group. On input a file containing decimal-formatted $( p, g, h )$, prints $x$ to standard output.The program can be executed as follows:
 
     dl-efficient <filename for inputs>
 

@@ -48,11 +48,10 @@ func getInputText(inputText string) string {
 
 	text := string(dataBytes)
 
-	// fmt.Println(binaryText)
 	return text
 }
 
-//
+//gets the parameters P, G and H from the input file and returns them as big.Int
 func getParameters(inputFile string) (*big.Int, *big.Int, *big.Int) {
 
 	P := new(big.Int)
@@ -73,6 +72,7 @@ func getParameters(inputFile string) (*big.Int, *big.Int, *big.Int) {
 	return P, G, H
 }
 
+// iterates through the possible values of x for 20-40 bits and checks if G^x mod P is equal to H, if it is then it prints x and exits the program
 func bruteForce(G, H, P *big.Int, i int64) {
 
 	X := new(big.Int).SetInt64(2)
@@ -122,22 +122,15 @@ func bruteForce(G, H, P *big.Int, i int64) {
 		end.Exp(two, endIter, nil)
 	}
 
-	// fmt.Println("start: ", start)
-	// fmt.Println("end: ", end)
-
 	for X = start; X.Cmp(end) != 0; X.Add(X, one) {
 
-		// Xiter.new(big.int).SetString("125217870160", 10)
 		Xiter := new(big.Int).Mod(X, P)
-		// if i == 4 {
-		// 	fmt.Println("Xiter: ", Xiter)
-		// }
+
 		HPrime.Exp(G, Xiter, P)
-		// fmt.Println("iterations: ", X)
+
 		if HPrime.Cmp(H) == 0 {
 			fmt.Println(X)
 			os.Exit(0)
-			// fmt.Println("answer found: ", time.Now())
 		}
 
 	}
@@ -150,8 +143,6 @@ func main() {
 
 	P, G, H := getParameters(inputFile)
 
-	// fmt.Println("P,G,H: ", P, G, H)
-
 	go bruteForce(G, H, P, 1)
 	go bruteForce(G, H, P, 2)
 	go bruteForce(G, H, P, 3)
@@ -160,22 +151,7 @@ func main() {
 	go bruteForce(G, H, P, 6)
 	go bruteForce(G, H, P, 7)
 
-	// fmt.Println("main started", time.Now())
-
-	// two := new(big.Int).SetInt64(2)
-	// startIter := new(big.Int)
-	// endIter := new(big.Int)
-	// start := new(big.Int)
-	// end := new(big.Int)
-
-	// startIter.SetInt64(37)
-	// endIter.SetInt64(36)
-	// start.Exp(two, startIter, nil)
-	// end.Exp(two, endIter, nil)
-
-	// fmt.Println("start ", start)
-	// fmt.Println("end ", end)
 
 	time.Sleep(300 * time.Minute)
-	// fmt.Println("main terminated", time.Now())
+
 }
